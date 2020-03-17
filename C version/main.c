@@ -12,6 +12,7 @@ int main(){
 	int index;
 	int eq_size;
 	int calculating = 1;
+	int multidigit;
 
 	char_stack_t operators;
 	if(!init_stackc(&operators, 10))
@@ -29,6 +30,7 @@ int main(){
 		scanf("%s", equation);
 		eq_size = strlen(equation);
 		index = 0;
+		multidigit = 0;
 
 		if(equation[0] == 'q')
 			break;
@@ -42,12 +44,16 @@ int main(){
 		// loop to place all characters in postfix notation
 		for(int i=0; i<eq_size; i++){
 
-			//ascii values of numbers to check if the character is a number
 			if(is_digit(equation[i]) ){
-				pf[index] = equation[i];
-				index++;
+				
+				multidigit = (multidigit * 10) + atoi(equation[i]);
+
 			}
 			else{
+
+				pf[index] = multidigit; // SERIOUS BUG HERE
+				index++;
+				multidigit = 0;
 
 				while(priority_of(equation[i]) < priority_of(check_stackc(&operators))){
 
