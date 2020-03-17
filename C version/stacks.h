@@ -185,4 +185,92 @@ int is_digit(char num){
 		return 0;
 }
 
+void set_pf(char_stack_t *operators, char *equation, char *pf, int eq_size){
+
+	int index = 0;
+
+	for(int i=0; i<eq_size; i++){
+
+		if(is_digit(equation[i])){
+			
+			pf[index] = equation[i]; // SERIOUS BUG HERE
+			index++;
+
+		}
+		else{
+
+			while(priority_of(equation[i]) < priority_of(check_stackc(operators))){
+
+				if(!popc(operators, &pf[index]))
+					break;
+
+				index++;
+			}
+
+			if(!pushc(operators, equation[i])) printf("push error\n");
+		}
+
+	}
+
+
+	while(operators->sp > -1){
+		if(!popc(operators, &pf[index]))
+			break;
+		index++;
+	}
+}
+
+float evaluate(float val1, float val2, char operator){
+
+
+	if(operator == '-')
+		return val2 - val1;
+
+	else if(operator == '+')
+		return val2 + val1;
+
+	else if(operator == '/')
+		return val2 / val1;
+
+	else if(operator == '*')
+		return val2 * val1;
+
+	else
+		return pow(val2, val1);
+}
+
+float get_result(float_stack_t *vlus, char *pf, int eq_size){
+
+	float num;
+	float val1;
+	float val2;
+	float result = 0;
+	char chr;
+
+	for(int i=0; i<eq_size; i++){
+
+		if(is_digit(pf[i])){
+
+			chr = pf[i];
+			num = atof(&chr);
+
+			pushf(vlus, num);
+
+		}else{
+
+			popf(vlus, &val1);
+			popf(vlus, &val2);
+
+			result = evaluate(val1, val2, pf[i]);
+
+			pushf(vlus, result);
+		}
+	}
+
+	popf(vlus, &result);
+
+	return result;
+}
+
+
 #endif //STACKS_H

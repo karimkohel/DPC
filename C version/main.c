@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "stacks.h"
 
 
@@ -8,11 +9,9 @@ int main(){
 
 	char equation[20]; //user entered equation
 	char *pf; //postfix
-	// char x; //buffer for pf characters
-	int index;
 	int eq_size;
 	int calculating = 1;
-	int multidigit;
+	float result;
 
 	char_stack_t operators;
 	if(!init_stackc(&operators, 10))
@@ -29,60 +28,31 @@ int main(){
 		printf("$ ");
 		scanf("%s", equation);
 		eq_size = strlen(equation);
-		index = 0;
-		multidigit = 0;
 
 		if(equation[0] == 'q')
 			break;
 
-		pf = (char*)malloc(sizeof(char)*30); //postfix
+		pf = (char*)malloc(sizeof(char)*30); //postfix memory assignment
 
-		// loop to check validity of expression
+		// check validity of expression and return the equation size or a 0
 		eq_size = check_input(eq_size, equation);
 
+		// place all characters in postfix notation
+		set_pf(&operators, equation, pf, eq_size);
 
-		// loop to place all characters in postfix notation
-		for(int i=0; i<eq_size; i++){
-
-			if(is_digit(equation[i]) ){
-				
-				multidigit = (multidigit * 10) + atoi(equation[i]);
-
-			}
-			else{
-
-				pf[index] = multidigit; // SERIOUS BUG HERE
-				index++;
-				multidigit = 0;
-
-				while(priority_of(equation[i]) < priority_of(check_stackc(&operators))){
-
-					if(!popc(&operators, &pf[index]))
-						break;
-
-					index++;
-				}
-
-				if(!pushc(&operators, equation[i])) printf("push error\n");
-			}
-
-		}
-
-
-		while(operators.sp > -1){
-			if(!popc(&operators, &pf[index]))
-				break;
-			index++;
-		}
+		// getting results by stacking the postfix equation in a float stack
+		result = get_result(&results, pf, eq_size);
 
 		printf("pf = %s\n\n", pf);
+
+		printf("result is = %f\n", result);
 
 		free(pf);
 	}
 
 	free_stackc(&operators);
 	free_stackf(&results);
-	printf("---------------------------------------\n->Thank you for trying me out, Good bye.\n");
+	printf("---------------------------------------\n->Thank you for trying me out, Good bye.\n\n");
 
 	return 0;
 }
