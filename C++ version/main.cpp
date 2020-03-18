@@ -1,11 +1,14 @@
 #include <iostream>
+#include <string>
+#include <stdexcept>
+#include "stack.h"
+#include "resources.h"
 
-using namespace std;
 
 int main(int argc, char const *argv[]){
 
+	greet();
 
-	cout << "Hello world" << endl;
 
 	return 0;
 }
