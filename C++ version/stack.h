@@ -6,6 +6,7 @@ template<typename Type>
 class Stack {
 
 private:
+
 	Type *data;
 	int sp;
 	int size;
@@ -37,6 +38,7 @@ public:
 	}
 
 	Type pop(){
+		
 		if(sp <= -1)
 			throw out_of_range("Poping from an empty stack.");
 		else{
@@ -50,7 +52,7 @@ public:
 	}
 
 	~Stack(){
-		delete data;
+		delete[] data;
 	}
 
 };
