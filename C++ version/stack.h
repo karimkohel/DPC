@@ -1,4 +1,3 @@
-using namespace std;
 #pragma once
 
 
@@ -15,7 +14,7 @@ public:
 
 	Stack(int stackSize){
 
-		data = new Type[size]; // can throw bad_alloc
+		data = new Type[stackSize];
 		size = stackSize;
 		sp = -1;
 	}
@@ -38,7 +37,7 @@ public:
 	}
 
 	Type pop(){
-		
+
 		if(sp <= -1)
 			throw out_of_range("Poping from an empty stack.");
 		else{
@@ -49,6 +48,13 @@ public:
 
 			return popped;
 		}
+	}
+
+	bool notEmpty(){
+		if(sp == -1)
+			return false;
+		else
+			return true;
 	}
 
 	~Stack(){

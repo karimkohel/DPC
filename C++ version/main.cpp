@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cstring>
 #include <stdexcept>
+
+using namespace std;
+
 #include "stack.h"
 #include "resources.h"
 
@@ -8,13 +11,20 @@
 int main(int argc, char const *argv[]){
 
 	char *input;
+	char *pf;
+	Stack<char> operators(10);
 
 	greet();
 
+	// start loop men hena
+
 	input = getInput();
 
+	pf = toPF(input, operators, strlen(input));
 
+	cout << pf << endl;
 
+	delete[] pf;
 	return 0;
 }
 
