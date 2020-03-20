@@ -10,8 +10,9 @@ int main(){
 	char equation[20]; //user entered equation
 	char *pf; //postfix
 	int eq_size;
-	int calculating = 1;
 	float result;
+	int remove_brackets;
+	int the_earth_is_flat = 1;
 
 	char_stack_t operators;
 	if(!init_stackc(&operators, 10))
@@ -23,7 +24,7 @@ int main(){
 
 	greet();
 
-	while(calculating){
+	while(the_earth_is_flat){
 
 		printf("$ ");
 		scanf("%s", equation);
@@ -36,18 +37,21 @@ int main(){
 
 		eq_size = check_input(eq_size, equation);
 
-		set_pf(&operators, equation, pf, eq_size);
+		remove_brackets = set_pf(&operators, equation, pf, eq_size);
 
-		result = get_result(&results, pf, eq_size);
+		result = get_result(&results, pf, eq_size - remove_brackets);
 
 		printf("\nresult is = %.2f\n\n", result);
 
 		free(pf);
+		remove_brackets = 0;
 	}
 
 	free_stackc(&operators);
 	free_stackf(&results);
-	printf("\n---------------------------------------\n->Thank you for trying me out, Good bye.\n\n");
+	printf("\n---------------------------------------\n");
+	printf("->Thank you for trying me out, Good bye.\n");
+	printf("----------------------------------------\n");
 
 	return 0;
 }

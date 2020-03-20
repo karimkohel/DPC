@@ -158,8 +158,9 @@ void failed(){
 
 void greet(){
 	printf("------Welcome to the Damn Powerful Calculator------\n");
-	printf("->Enter your equation with no spaces or invalide characters below\n");
-	printf("->Enter q to exit the DPC\n\n");
+	printf("->Enter your equation with no spaces\n   or invalide characters below\n");
+	printf("->Enter q to exit the DPC\n");
+	printf("---------------------------------------------------\n\n");
 }
 
 int check_input(int eq_size, char *equation){
@@ -185,9 +186,10 @@ int is_digit(char num){
 		return 0;
 }
 
-void set_pf(char_stack_t *operators, char *equation, char *pf, int eq_size){
+int set_pf(char_stack_t *operators, char *equation, char *pf, int eq_size){
 
 	int index = 0;
+	int remove_brackets = 0;
 
 	for(int i=0; i<eq_size; i++){
 
@@ -196,6 +198,22 @@ void set_pf(char_stack_t *operators, char *equation, char *pf, int eq_size){
 			pf[index] = equation[i]; // SERIOUS BUG HERE
 			index++;
 
+		}
+		else if(equation[i] == '('){
+
+			if(!pushc(operators, equation[i]))
+				printf("Push error\n");
+
+			remove_brackets++;
+		}
+		else if(equation[i] == ')'){
+
+			while (operators->array[operators->sp] != '(') {
+				popc(operators, &pf[index]);
+				index++;
+			}
+			operators->sp--;
+			remove_brackets++;
 		}
 		else{
 
@@ -218,6 +236,8 @@ void set_pf(char_stack_t *operators, char *equation, char *pf, int eq_size){
 			break;
 		index++;
 	}
+
+	return remove_brackets;
 }
 
 float evaluate(float val1, float val2, char operator){
