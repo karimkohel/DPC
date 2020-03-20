@@ -157,10 +157,11 @@ void failed(){
 }
 
 void greet(){
-	printf("------Welcome to the Damn Powerful Calculator------\n");
+	printf("------------------------------------------------------\n");
+	printf("\tWelcome to the Damn Powerful Calculator\n");
+	printf("------------------------------------------------------\n\n");
 	printf("->Enter your equation with no spaces\n   or invalide characters below\n");
-	printf("->Enter q to exit the DPC\n");
-	printf("---------------------------------------------------\n\n");
+	printf("->Enter q to exit the DPC\n\n");
 }
 
 int check_input(int eq_size, char *equation){
