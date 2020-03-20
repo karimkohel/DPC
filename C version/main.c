@@ -55,7 +55,6 @@ int main(){
 /*
 
 TO DO:
-
 	-implement brackets in character stack
 
 DONE:
@@ -75,5 +74,4 @@ DONE:
 	-push result in the float stack again
 
 	-finish when strlen(pf) == 0 and only one result left in the float stack 
-
 */
