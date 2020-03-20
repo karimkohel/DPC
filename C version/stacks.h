@@ -199,7 +199,7 @@ void set_pf(char_stack_t *operators, char *equation, char *pf, int eq_size){
 		}
 		else{
 
-			while(priority_of(equation[i]) < priority_of(check_stackc(operators))){
+			while(priority_of(equation[i]) <= priority_of(check_stackc(operators))){
 
 				if(!popc(operators, &pf[index]))
 					break;

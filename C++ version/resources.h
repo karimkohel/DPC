@@ -67,11 +67,16 @@ char *toPF(char *input, Stack<char> operators, int len){
 
 		else{
 
-			while(priorityOf(input[i]) < priorityOf(operators.peek())){ // catch them errors bitch
-				pf[count++] = operators.pop();
-			}
+			try{
 
-			operators.push(input[i]);
+				while(priorityOf(input[i]) < priorityOf(operators.top())){ // catch them errors bitch
+					pf[count++] = operators.pop();
+				}
+			}
+			catch(out_of_range &error){
+
+				operators.push(input[i]);
+			}
 		}
 	}
 

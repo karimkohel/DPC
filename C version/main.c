@@ -32,27 +32,22 @@ int main(){
 		if(equation[0] == 'q')
 			break;
 
-		pf = (char*)malloc(sizeof(char)*30); //postfix memory assignment
+		pf = (char*)malloc(sizeof(char)*30);
 
-		// check validity of expression and return the equation size or a 0
 		eq_size = check_input(eq_size, equation);
 
-		// place all characters in postfix notation
 		set_pf(&operators, equation, pf, eq_size);
 
-		// getting results by stacking the postfix equation in a float stack
 		result = get_result(&results, pf, eq_size);
 
-		printf("pf = %s\n\n", pf);
-
-		printf("result is = %f\n", result);
+		printf("\nresult is = %.2f\n\n", result);
 
 		free(pf);
 	}
 
 	free_stackc(&operators);
 	free_stackf(&results);
-	printf("---------------------------------------\n->Thank you for trying me out, Good bye.\n\n");
+	printf("\n---------------------------------------\n->Thank you for trying me out, Good bye.\n\n");
 
 	return 0;
 }
@@ -61,12 +56,15 @@ int main(){
 
 TO DO:
 
+	-implement brackets in character stack
+
+DONE:
+
 	-translate to postfix
 		-add numbers to pf. [Done]
 		-put operators to char stack according to priority. [Done]
 		-pop operators if lower priority is present. [Done]
 		-pop all when expression ends. [Done]
-		-implement brackets in character stack
 
 	-init float stack [Done]
 
@@ -77,9 +75,5 @@ TO DO:
 	-push result in the float stack again
 
 	-finish when strlen(pf) == 0 and only one result left in the float stack 
-
-	-implement multiple digit number in stacks
-
-	-debugging stacks is a nightmare
 
 */

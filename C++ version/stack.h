@@ -29,7 +29,7 @@ public:
 		}
 	}
 
-	Type peek(){
+	Type top(){
 		if(sp <= -1)
 			throw out_of_range("Peeking into an empty stack.");
 		else
